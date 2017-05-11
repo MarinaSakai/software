@@ -30,16 +30,43 @@ public class NetworkServer {
 		String filename = file.getName();
 		return ZipClient.decompressZip(zipDataDir+filename, unzipDataDir);
 	}
-/*
-public void sendString(String data, String host, int num) {
-	//ファイル名を送信するメソッド
-}
-
-public String getString(int num) {
+	
+	/*
+	public void sendString(String data, String host) {
+		//ファイル名を送信するメソッド
+		try{
+			// ソケットの準備
+			Socket socket = new Socket(host, PORT);
+			// データ受信用バッファの設定
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			// 送信バッファ設定
+			PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
+			
+			out.println(data);	// ファイル名送信
+			String str = in.readLine();	// 受信
+		} finally {
+			socket.close();
+		}
+	}
+	
+	public String getString() {
 		//ファイル名を受信するメソッド
-}
-
-*/
+		// ソケットの準備
+			ServerSocket s = new ServerSocket(PORT);
+		try {
+			Socket socket = s.accept();	// コネクション設定要求を待つ
+			try {
+				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));	// データ受信用バッファの設定
+				PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);	// 送信バッファ設定
+				String str = in.readLine();	// ファイル名受信
+			}
+		} finally {
+			socket.close();
+		}
+	}
+	
+	*/
+	
 public void sendData(File[] sendFiles,String host,int num) {
 			byte[] buffer = new byte[512];      // ファイル送信時のバッファ
 			try{
